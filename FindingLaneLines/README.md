@@ -1,9 +1,9 @@
 # **Finding Lane Lines on the Road**
 
 ### Overview
-The goals / steps of this project are the following:
+The goals / steps of this project are:
 * Make a pipeline that finds lane lines on the road
-* Reflect on your work in a written report
+* Reflect on the work in a written report
 
 
 
@@ -26,11 +26,11 @@ Apply Gaussian Smoothing to reduce noise before running Canny Edge Detection. An
 ###### 4. Line Segments Average/Extrapolation
 ![line_ext](test_images_output/solidYellowLeft_out_ext.jpg)
 The current implementation is:
-    1. calculate slopes for each line, and divide the lines to two groups: positive and negative
-    2. set pos_min_slope/neg_max_slope to remove the near-horizontal lines
-    3. remove outliers based on standard deviation
-    4. find the average slope and intercept for each group, using line lengths as the weights
-    5. draw averaged/extrapolated lines from the bottom of the image
+* calculate slopes for each line, and divide the lines to two groups: positive and negative
+* set pos_min_slope/neg_max_slope to remove the near-horizontal lines
+* remove outliers based on standard deviation
+* find the average slope and intercept for each group, using line lengths as the weights
+* draw averaged/extrapolated lines from the bottom of the image
 
 #### Shortcomings
 1. Threshold values are manually picked based on the sample images/videos. They may not work well for other inputs.
