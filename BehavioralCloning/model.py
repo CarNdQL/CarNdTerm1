@@ -14,6 +14,7 @@ def generator(samples, batch_size=32):
             batch_samples = samples[offset:offset+batch_size]
 
             images, angles = [],[]
+            # batch_sample structure:[filename, angle, flag_to_flip]
             for batch_sample in batch_samples:
                 image = cv2.imread(batch_sample[0])
                 angle = batch_sample[1]
@@ -33,11 +34,14 @@ def generator(samples, batch_size=32):
 samples = []
 angle_correction = [0, 0.2, -0.2] # used to estimate the angle of left/right images
 
+# folder "sim_training" contains the recording of two laps on track one using center lane driving.
 input_path = 'sim_training/'
 with open(input_path+'driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
     for line in reader:
         angle = float(line[3])
+        # generated 6 samples from each line:
+        #  center, center_flipped, left, left_flipped, right, right_flipped
         for i in range(3):
             source_path = line[i]
             filename = source_path.split('/')[-1]
@@ -48,6 +52,7 @@ with open(input_path+'driving_log.csv') as csvfile:
             sample=[current_path, angle+angle_correction[i], 1]
             samples.append(sample)
 
+# folder "sim_training_more" contains the recording of recovering from the left side and right sides of the road back to center.
 input_path = 'sim_training_more/'
 with open(input_path+'driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
