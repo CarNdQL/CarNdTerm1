@@ -65,25 +65,36 @@ The 3x3 tranform matrix is calculated like this:
 warp_M = cv2.getPerspectiveTransform(src_pts, dst_pts)
 ```
 
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
+In the example below, the lines in the warped images appear parallel, which shows that the perspective transform was working as expected.
 
 ![perspective transform](output_images/transform.png)
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+I tried both the sliding window and the skipping window approaches as described in section `Locate the Lane Lines and Fit a Polynomial`. Here are the visualization results:
+1. Sliding window
+![perspective transform](output_images/slidingWindow.png)
 
-![alt text][image5]
+2. Skipping window: search in a margin around the previous line position
+![perspective transform](output_images/incremental.png)
 
-#### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+#### 5. Describe how you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+The radius of curvature is calculated based on the following formula described in https://www.intmath.com/applications-differentiation/8-radius-curvature.php:
+![perspective transform](output_images/curveFormula.png)
 
-I did this in lines # through # in my code in `my_other_file.py`
+The python code implementation is:
+```python
+curverad = ((1 + (2*fit_cr[0]*y_eval*ym_per_pix + fit_cr[1])**2)**1.5) / np.absolute(2*fit_cr[0])
+```
+
+The position of the vehicle is described as the distance from the middle of detected lane to the middle of image.
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+The plot back logic is implemented in function `draw_image(img, left_fit, right_fit, avg_curverad)`.
 
-![alt text][image6]
+Here are some examples of the result plotted back onto the test images:
+![perspective transform](output_images/plotBack.png)
 
 ---
 
@@ -91,12 +102,13 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](output_images/project_output.mp4)
 
 ---
 
 ### Discussion
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
-
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+Things to be improved:
+1. In perspective transform, the four pairs of the corresponding points are manually marked, so the result may not be accurate. Could consider to pick up more sets of points and run average on the transform matrix to improve the accuracy.
+2. In project video, the right line is dotted line and the left line is solid. Since the two lines are parallel, could do data augmentation to add more points to the right line based on the points detected on left line.
