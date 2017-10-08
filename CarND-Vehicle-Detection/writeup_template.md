@@ -42,7 +42,7 @@ Here are some examples using different color spaces and HOG parameters of (`orie
 In code cells under "3. Explore various combinations of colorspaces, hog_channels, orientations, pixels_per_cell, and cells_per_block", I first tried various colorspaces and hog_channels with fixed settings on (`orientations=8`, `pixels_per_cell=(8, 8)`, `cells_per_block=(2, 2)`).
 
 |colorspace| orientations |pixels/cell| cells/block| channel| time to extract features| time to train| accuracy|
-|---|---| ---|
+| --- | --- | --- |
 |RGB| 8 |8| 2| 0| 30.18| 9.61| 0.9381|
 |RGB|8|8|2|1|33.4|7.77|0.9457|
 |RGB|8|8|2|2|30.5|7.75|0.9451|
@@ -71,7 +71,7 @@ In code cells under "3. Explore various combinations of colorspaces, hog_channel
 Then, I tried various settings on `orientations`, `pixels_per_cell`, `cells_per_block` using the top three colorspaces `HSV`/`YUV`/`YCrCb`
 
 |colorspace| orientations |pixels/cell| cells/block| channel| time to extract features| time to train| accuracy|
-|---|---| ---|
+| --- | --- | --- |
 |HSV|8|8|2|ALL|89.78|14.96|0.9786|
 |HSV|8|16|2|ALL|60.31|2.54|0.9671|
 |HSV|9|8|2|ALL|73.47|19.32|0.9814|
@@ -106,7 +106,7 @@ I tried the sliding window search with scales=[1,1.5,2,2.5,3]. The result below 
 So I set the following search range for different scale:
 
 |scales|1|1.5|2|2.5|3|
-|---|---|---|
+| --- | --- | --- |
 |ystart|340|340|340|340|340|
 |ystop|500|525|600|675|719|
 
