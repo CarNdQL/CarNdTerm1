@@ -101,9 +101,9 @@ From dataset, 80% of images are used for training, and the rest 20% are for test
 #### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
 I tried the sliding window search with scales=[1,1.5,2,2.5,3]. The result below shows that the smaller vehicle image match should not occur at the bottom of images:
-![different scales](output_images/scales2.png)
+![different scales](output_images/scales.png)
 
-So I set the following search range for different scale:
+So I set the following search ranges for different scales:
 
 |scales|1|1.5|2|2.5|3|
 |:---------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|
